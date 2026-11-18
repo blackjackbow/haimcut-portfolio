@@ -18,7 +18,7 @@ document.querySelectorAll('[data-video]').forEach(button=>button.addEventListene
 function closePlayer(){dialog.close()}
 document.querySelector('#close-player').addEventListener('click',closePlayer);
 dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closePlayer()}});
-dialog.addEventListener('close',()=>{if(dialog.open)return;dialog.querySelectorAll('iframe').forEach(f=>f.remove());player.hidden=false;player.pause();player.removeAttribute('src');player.load();document.body.style.overflow='';opener?.focus();if(!comparePausedByUser&&!reduced.matches&&!manualReduced&&compareInView())compareStart(false)});
+dialog.addEventListener('close',()=>{if(dialog.open)return;dialog.querySelectorAll('iframe').forEach(f=>f.remove());player.hidden=false;player.pause();player.removeAttribute('src');player.load();document.body.style.overflow='';opener?.focus();if(!comparePausedByUser&&!manualReduced&&compareInView())compareStart(false)});
 player.addEventListener('error',()=>{document.querySelector('#player-error').textContent='La vidéo n’a pas pu être chargée. Ferme le lecteur puis réessaie.'});
 document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
  document.querySelectorAll('[data-filter]').forEach(b=>{const yes=b===button;b.classList.toggle('active',yes);b.setAttribute('aria-pressed',String(yes))});
@@ -91,10 +91,10 @@ function updateParallax(){
 }
 addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(updateParallax)}},{passive:true});addEventListener('resize',updateParallax);reduced.addEventListener('change',updateParallax);
 motionButton.addEventListener('click',()=>{manualReduced=!manualReduced;document.body.classList.toggle('reduce-motion',manualReduced);motionButton.setAttribute('aria-pressed',String(manualReduced));motionButton.textContent=manualReduced?'Rétablir les mouvements':'Réduire les mouvements';updateParallax()});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)compareStop();else if(!comparePausedByUser&&!reduced.matches&&!manualReduced&&compareInView())compareStart(false)});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)compareStop();else if(!comparePausedByUser&&!manualReduced&&compareInView())compareStart(false)});
 // Comparateur en vidéo de fond : il tourne seul dès qu'il est à l'écran, sauf pause demandée ou mouvements réduits.
 new IntersectionObserver(([e])=>{
- if(e.isIntersecting&&!comparePausedByUser&&!reduced.matches&&!manualReduced){if(!compareWanted)compareStart(false)}
+ if(e.isIntersecting&&!comparePausedByUser&&!manualReduced){if(!compareWanted)compareStart(false)}
  else if(!e.isIntersecting&&compareWanted)compareStop();
 },{threshold:.4}).observe(compareFrame);
 updateParallax();
