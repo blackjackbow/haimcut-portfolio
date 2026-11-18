@@ -1,0 +1,309 @@
+/* Charte « Heure bleue, sur papier » (04/11/2026), thème Fusion seul depuis le 06/11/2026 :
+   couleurs, typo et étalonnage de C + papier et couches déchirées de A. */
+
+:root{--ease:cubic-bezier(.16,1,.3,1)}
+
+body[data-da="fusion"]{
+ --night:#08182b;--deep:#0c2036;--abyss:#040b15;--glass:#163152;--line:#1d3b5c;
+ --white:#dfe9f4;--muted:#9db3cc;--aqua:#6f93b8;--sand:#f0b66e;--sand-hover:#f5c88a;--on-accent:#1a1206;
+ --f-title:"Big Shoulders Display",Impact,sans-serif;--f-em:"Cormorant Garamond",Georgia,serif;--f-body:"Inter Tight",system-ui,sans-serif;
+ --littoral:url('assets/c-littoral.jpg');
+ --l0:#6f93b8;--l1:#3f6f9e;--l2:#2c5a88;--l3:#123257;--l4:#08182b;
+ --tex-on:var(--tex);--shadow-layer:rgba(2,8,18,.55);
+}
+/* Une couleur = un papier (05/11/2026), papiers dessinés par da.js. */
+body[data-da="fusion"]{--tex-l0:var(--p-aquarelle);--tex-l1:var(--p-verge);--tex-l2:var(--p-fibre);--tex-l3:var(--p-washi);--tex-l4:var(--p-coton);--tex-deep:var(--p-kraft);--tex-on:var(--tex-l4)}
+/* Une matière différente par section (17/11/2026), papiers dessinés par da.js */
+body[data-da="fusion"] :is(header,.vsl-home){--tex-on:var(--p-coton)}
+body[data-da="fusion"] #douleurs{--tex-on:var(--p-froisse)}
+body[data-da="fusion"] :is(.comparison,.manifesto-strip){--tex-on:var(--p-kraft)}
+body[data-da="fusion"] .story-stage{--tex-on:var(--p-verge)}
+body[data-da="fusion"] .work{--tex-on:var(--p-fibre)}
+body[data-da="fusion"] #process{--tex-on:var(--p-crepon)}
+body[data-da="fusion"] .about{--tex-on:var(--p-aquarelle)}
+body[data-da="fusion"] .trial{--tex-on:var(--p-carton)}
+body[data-da="fusion"] .faq{--tex-on:var(--p-journal)}
+body[data-da="fusion"] .booking{--tex-on:var(--p-toile)}
+body[data-da="fusion"] footer{--tex-on:var(--p-calque)}
+@media(prefers-contrast:more){body[data-da="fusion"]{--muted:#cfdcea;--line:#4d77a3}}
+
+/* ---------- typographie ---------- */
+body{font-family:var(--f-body)}
+body :is(h1,h2,h3,.story-title,.vsl-poster-copy strong,.depth-note strong,.back-word,.vsl-watermark,.booking-backword,.method-depth-word,.brand,.story-resolution h2){font-family:var(--f-title)}
+body[data-da="fusion"] :is(h1,h2,.story-title,.vsl-poster-copy strong,.depth-note strong,.story-resolution h2){text-transform:uppercase;font-weight:800;letter-spacing:.004em;line-height:.96}
+body[data-da="fusion"] h1{font-size:clamp(46px,5.4vw,78px)}
+body[data-da="fusion"] h2{font-size:clamp(44px,5.6vw,80px)}
+body[data-da="fusion"] .story-heading .story-title{font-size:clamp(40px,4.5vw,68px)}
+body[data-da="fusion"] h3{font-weight:700;letter-spacing:.01em;text-transform:uppercase;font-size:1.25em}
+body[data-da="fusion"] em{font-family:var(--f-em);font-style:italic;font-weight:600;text-transform:none;letter-spacing:0;color:var(--sand);font-size:1.06em}
+body[data-da="fusion"] .brand{font-weight:900;letter-spacing:.06em;font-size:27px}
+body[data-da="fusion"] :is(.back-word,.vsl-watermark,.booking-backword,.method-depth-word){font-weight:900;letter-spacing:0}
+
+
+/* ---------- matière : papier fibré sur les fonds ---------- */
+body[data-da="fusion"] :is(header,.vsl-home,.manifesto-strip,.story-stage,.work,.comparison,.method,.about,.trial,.faq,.booking,footer){background-image:var(--tex-on);background-size:420px 420px;background-blend-mode:soft-light}
+/* sections sans fond propre : la texture a besoin d'une couleur sous elle, sinon elle grise */
+body[data-da="fusion"] :is(.story-stage,.method,.about,.faq,.booking,footer){background-color:var(--night)}
+/* Rythme des couleurs (17/11/2026, « alterne les couleurs pour faire un ensemble créé par un vrai concepteur de site »).
+   Deux familles qui alternent, chacune avec sa progression :
+   - clairs, qui montent jusqu'à l'offre : C1 #1f466f → C2 l2 #2c5a88 → C3 #366593 → C4 l1 #3f6f9e (essai, le point le plus lumineux) ;
+   - sombres, qui s'enfoncent jusqu'au générique de fin : S1 #0f2946 → S2 deep → S3 night → S4 #06121f → pied de page abyss.
+   Le contact reprend la teinte C1 de « Tu te reconnais ? » : il fait écho au début, avec ses couches de papier comme l'accueil. */
+body[data-da="fusion"] #douleurs{background-color:#1f466f}                          /* C1 */
+body[data-da="fusion"] .comparison{background-color:#0f2946}                        /* S1 */
+body[data-da="fusion"] :is(.scroll-story,.story-stage){background-color:#2c5a88}    /* C2 */
+body[data-da="fusion"] .work{background-color:var(--deep)}                          /* S2 */
+body[data-da="fusion"] #process{background-color:#366593}                           /* C3 */
+body[data-da="fusion"] .about{background-color:var(--night)}                        /* S3 */
+body[data-da="fusion"] .trial{background-color:#3f6f9e}                             /* C4 */
+body[data-da="fusion"] .faq{background-color:#06121f}                               /* S4 */
+body[data-da="fusion"] .booking{background-color:#1f466f}                           /* écho de C1 */
+body[data-da="fusion"] .booking-sea{background:linear-gradient(color-mix(in srgb,#1f466f 88%,transparent),color-mix(in srgb,#1f466f 69%,transparent)),var(--littoral) center 60%/cover} /* le voile sur la photo du littoral prend la teinte d'écho, sinon il la cache */
+body[data-da="fusion"] footer:not(._){background-color:var(--abyss)} /* fin ; :not(._) passe devant la règle :is() des fonds */
+/* sur les bleus clairs, textes éclaircis pour rester lisibles */
+body[data-da="fusion"] :is(#douleurs,.story-stage,#process,.trial,.booking){--white:#f4f8fc;--muted:#e2eaf3;--line:#5b86b3;color:var(--white)}
+body[data-da="fusion"] :is(#douleurs,.story-stage,#process,.trial,.booking) :is(h2,h3){color:var(--white)}
+body[data-da="fusion"] .trial:not(#_){--muted:#f4f8fc} /* la teinte la plus claire (C4) : textes secondaires en blanc plein */
+body[data-da="fusion"] :is(#douleurs,.story-stage,#process,.trial,.booking) em{color:var(--sand-hover)} /* sable plus clair : l'italique garde son contraste */
+
+/* couches de papier déchiré : bords dessinés par da.js, parallaxe au défilement (app.js) et à la souris */
+.paper-stack{position:absolute;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.paper-layer{position:absolute;left:-7%;right:-7%;bottom:-14%;filter:drop-shadow(0 -6px 10px var(--shadow-layer));will-change:transform;transition:translate .9s var(--ease)}
+.paper-fill{position:absolute;inset:0;background-size:420px 420px,auto;background-blend-mode:soft-light;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.stack-poster{z-index:-1}
+
+/* accueil : photo détourée bordée de papier, posée sur les couches */
+.vsl-cutout{position:absolute;right:3%;bottom:-2%;height:97%;width:auto;z-index:1;filter:drop-shadow(0 12px 16px var(--shadow-layer));transform:rotate(-1.2deg);transform-origin:50% 100%;pointer-events:none}
+body[data-da="fusion"] .vsl-portrait{display:none}
+/* le cadre est transparent : derrière Jérôme, les mêmes papiers que la page (demande du 05/11/2026) */
+body[data-da="fusion"] .vsl-placeholder{background:transparent;box-shadow:none}
+body[data-da="fusion"] :is(.vsl-poster-sea,.vsl-poster-grid,.stack-poster){display:none}
+
+dialog::backdrop{background:rgba(4,11,21,.95)}
+
+@media(max-width:600px){
+ body[data-da="fusion"] h1{font-size:44px}
+ body[data-da="fusion"] h2{font-size:46px}
+ body[data-da="fusion"] .story-heading .story-title{font-size:12vw}
+ .vsl-cutout{height:88%;right:-4%}
+}
+@media(prefers-reduced-motion:reduce){.paper-layer{transition:none}}
+/* arrivées au défilement (da.js) : un bloc qui arrive de côté ne doit pas faire défiler la page en largeur ; clip ne crée pas de zone de défilement */
+:is(.work,.comparison,.method,.about,.trial,.faq,.booking){overflow-x:clip}
+/* audit du 05/11/2026 : le compteur du filtre actif passait à 2,9:1 (atténué à 60 % sur fond clair) */
+.filter.active span{opacity:1}
+
+/* Les attributs width/height (audit du 05/11) ne doivent jamais fixer la hauteur : seul le ratio compte. */
+img{height:auto}
+
+/* Houle des papiers (demande du 05/11/2026 : « petit élément dans le fond qui bouge légèrement, comme les vagues, discret ») :
+   chaque couche se balance seule, quelques pixels, chacune à son rythme. rotate et scale restent libres : transform = défilement, translate = souris. */
+@keyframes houle{0%{rotate:-.35deg;scale:1 1}50%{scale:1 1.018}100%{rotate:.35deg;scale:1 1}}
+.paper-layer{transform-origin:50% 100%;animation:houle 11s ease-in-out infinite alternate}
+.paper-layer:nth-child(2){animation-duration:13s;animation-delay:-4s}
+.paper-layer:nth-child(3){animation-duration:9.5s;animation-delay:-7s;animation-direction:alternate-reverse}
+.paper-layer:nth-child(4){animation-duration:15s;animation-delay:-2s}
+.paper-layer:nth-child(5){animation-duration:12s;animation-delay:-9s;animation-direction:alternate-reverse}
+.reduce-motion .paper-layer{animation:none}
+
+/* Un élément discret différent par section (retour du 05/11 : « manque élément discret différent qui bouge légèrement »).
+   Posés par decors() dans da.js, sous le contenu, très lents ; arrêtés par « Réduire les mouvements » et la préférence du système. */
+:is(.work,.comparison,.method,.about,.trial,.faq){position:relative;isolation:isolate}
+.deco{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.reduce-motion .deco,.reduce-motion .deco *{animation:none!important}
+/* Réalisations : une pellicule qui défile (période 26 × 70 = 130 × 14 = 1820 px, la boucle ne saute pas) */
+.deco-pellicule{position:absolute;left:-40px;top:2%;width:calc(100% + 1900px);height:70px;rotate:-3deg;opacity:.3;border-block:1px solid var(--aqua);
+ background:repeating-linear-gradient(90deg,var(--aqua) 0 12px,transparent 12px 26px) 0 7px/100% 8px no-repeat,repeating-linear-gradient(90deg,var(--aqua) 0 12px,transparent 12px 26px) 0 calc(100% - 7px)/100% 8px no-repeat,repeating-linear-gradient(90deg,transparent 0 129px,var(--aqua) 129px 130px);
+ animation:defile 150s linear infinite}
+@keyframes defile{to{translate:-1820px 0}}
+/* Comparaison : la forme d'onde du son, qui respire */
+.deco-onde{position:absolute;left:50%;bottom:18px;translate:-50% 0;width:min(640px,80%);height:34px;display:flex;align-items:center;gap:4px;opacity:.5}
+.deco-onde i{flex:1;height:100%;background:var(--aqua);border-radius:2px;scale:1 var(--h);animation:pouls 3.4s ease-in-out infinite alternate}
+@keyframes pouls{from{scale:1 calc(var(--h) * .4)}to{scale:1 var(--h)}}
+/* Méthode : un fil pointillé qui avance d'une étape à l'autre */
+.deco-fil{position:absolute;inset:0;width:100%;height:100%;opacity:.85}
+.deco-fil path{fill:none;stroke:var(--sand);stroke-width:2;stroke-dasharray:3 10;vector-effect:non-scaling-stroke;animation:fil 26s linear infinite}
+@keyframes fil{to{stroke-dashoffset:-260}}
+/* À propos : le halo de l'heure bleue, qui respire */
+.deco-lune{position:absolute;top:6%;right:7%;width:340px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--sand) 34%,transparent),transparent 66%);animation:respire 12s ease-in-out infinite alternate}
+@keyframes respire{from{scale:.9;opacity:.5}to{scale:1.06;opacity:.95}}
+/* Essai : un point qui glisse sur l'orbite, dans sa partie visible */
+.orbit-a>.deco{overflow:visible;z-index:auto}
+.deco-satellite{position:absolute;inset:-1px;border-radius:50%;rotate:80deg;animation:orbite 34s ease-in-out infinite alternate}
+.deco-satellite:before{content:'';position:absolute;top:-3px;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--sand);box-shadow:0 0 12px var(--sand);opacity:.8}
+@keyframes orbite{from{rotate:80deg}to{rotate:160deg}}
+/* FAQ : quelques petits papiers déchirés qui flottent */
+.deco-papiers i{position:absolute;width:30px;height:22px;background-color:var(--aqua);background-image:var(--tex-l2);background-blend-mode:soft-light;opacity:.32;clip-path:polygon(4% 10%,30% 0,58% 8%,96% 2%,90% 40%,100% 78%,64% 92%,34% 100%,0 86%,6% 48%);animation:flotte 22s ease-in-out infinite alternate}
+.deco-papiers i:nth-child(1){left:4%;top:62%}
+.deco-papiers i:nth-child(2){left:88%;top:16%;scale:.7;animation-duration:27s;animation-delay:-8s}
+.deco-papiers i:nth-child(3){left:80%;top:68%;scale:1.2;animation-duration:19s;animation-delay:-4s}
+.deco-papiers i:nth-child(4){left:14%;top:78%;scale:.8;animation-duration:25s;animation-delay:-12s}
+.deco-papiers i:nth-child(5){left:50%;top:88%;scale:.6;animation-duration:30s;animation-delay:-16s}
+@keyframes flotte{from{translate:0 0;rotate:-8deg}to{translate:14px -46px;rotate:14deg}}
+@media(max-width:720px){.deco-lune{width:220px}.deco-onde{width:86%}}
+/* Réservation (retour du 05/11 : « vague mouvement un peu plus présent ») : houle plus ample et plus vive. */
+@keyframes houle-forte{0%{rotate:-.9deg;scale:1 1}50%{scale:1 1.05}100%{rotate:.9deg;scale:1 1}}
+.stack-booking .paper-layer{animation-name:houle-forte;animation-duration:8s}
+.stack-booking .paper-layer:nth-child(2){animation-duration:9.5s}
+.stack-booking .paper-layer:nth-child(3){animation-duration:7s}
+.stack-booking .paper-layer:nth-child(4){animation-duration:10.5s}
+.reduce-motion .stack-booking .paper-layer{animation:none}
+
+/* Méthode (retour du 05/11 : « à retravailler ») : le texte touchait le bord du bloc et le bas des colonnes.
+   Quatre cartes de papier séparées, même marge de chaque côté, même hauteur. */
+.method .steps{background:none;gap:14px}
+.method .steps>div,.method .steps>div+div{padding:26px 24px 30px;border:1px solid var(--line);border-radius:6px;background-color:color-mix(in srgb,var(--night) 90%,transparent);background-image:var(--tex-l4);background-size:420px 420px;background-blend-mode:soft-light}
+.method .steps span{font-size:11px}
+.method .steps h3{margin-top:18px}
+@media(max-width:720px){.method .steps{gap:12px}.method .steps>div,.method .steps>div+div{padding:20px 16px 22px}}
+
+/* Réservation (retour du 06/11) : le mot de fond centré ; translate reste libre, le glissement au défilement passe par transform. */
+.booking-backword{left:50%;translate:-50% 0}
+/* Les deux bandes hautes (vergé et fibré) étaient trop proches de teinte : la première prend le bleu clair et son aquarelle. */
+.stack-booking{--l1:var(--l0);--tex-l1:var(--tex-l0)}
+/* Accueil, même retour (« idem ici », 06/11) : HAIMCUT centré en fond, première bande en bleu clair aquarelle. */
+.vsl-watermark{left:50%;translate:-50% 0;white-space:nowrap}
+.stack-home{--l1:var(--l0);--tex-l1:var(--tex-l0)}
+
+/* Une section seule à l'écran (retour du 06/11 : « pour bien voir chaque page, elle doit un moment être seule à l'écran ») :
+   chacune fait au moins la hauteur de l'écran, contenu centré en hauteur ; l'accueil compte l'en-tête au-dessus de lui. */
+.vsl-home{min-height:calc(100svh - 100px);display:flex;flex-direction:column;justify-content:center}
+:is(.work,.comparison,.method,.about,.booking){min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+.faq{min-height:100svh;align-content:center}
+.trial{min-height:100svh}
+@media(max-width:720px){.vsl-home{min-height:calc(100svh - 80px)}}
+/* l'en-tête ne suit pas le défilement : un lien du menu pose sa section seule, pile en haut de l'écran */
+html{scroll-padding-top:0}
+
+/* « Tu veux voir le résultat ? » : timeline de montage en papier (da.js, montage()) à la place des vagues.
+   Trois pistes de clips déchirés ; elles glissent et la tête de lecture avance avec le défilement de la section. */
+.story-stage>.deco{z-index:-2}
+.deco-montage{position:absolute;left:0;right:0;top:54%;height:21%;display:flex;flex-direction:column;justify-content:space-between;opacity:.62;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.deco-montage .piste{position:relative;height:28%;border-block:1px solid color-mix(in srgb,var(--aqua) 14%,transparent)}
+.deco-montage b{position:absolute;left:9vw;top:50%;translate:0 -50%;z-index:1;font:600 10px/1 var(--f-body);letter-spacing:.18em;color:var(--sand);background:var(--night);padding:5px 7px 5px 0}
+.deco-montage .clips{position:absolute;left:11.5vw;top:9%;bottom:9%;width:150%;translate:calc(var(--story-progress,0) * var(--v) * -100%) 0}
+.deco-montage .clips i{position:absolute;top:0;bottom:0;background-size:420px 420px;background-blend-mode:soft-light;filter:drop-shadow(0 3px 5px var(--shadow-layer))}
+.deco-montage .tete{position:absolute;top:-9%;bottom:-6%;left:calc(14% + var(--story-progress,0) * 72%);width:1px;background:var(--sand);opacity:.85;z-index:2}
+.deco-montage .tete:before{content:'';position:absolute;top:-7px;left:-6px;border:6px solid transparent;border-top:8px solid var(--sand)}
+@media(max-width:720px){.deco-montage{top:56%;height:22%}.deco-montage b{left:8.5vw;font-size:8px}.deco-montage .clips{left:15vw;width:260%}}
+#douleurs .steps span{display:block;font-size:16px;letter-spacing:0;line-height:1.4;font-style:italic}
+@media(max-width:720px){#douleurs .steps span{font-size:14px}}
+/* Bloc « Tu te reconnais ? » (17/11/2026, choix de Jérôme : papier découpé de la DA) : une collure de pellicule à l'ancienne.
+   Deux bouts de film en papier se rapprochent, un morceau de scotch vient les recoller, on garde le collage, puis la boucle reprend. */
+.deco-collure{position:absolute;left:6%;right:6%;bottom:6%;height:84px;rotate:-1.5deg;opacity:.85}
+.deco-collure .bout{position:absolute;top:0;bottom:0;width:calc(50% - 1px);background-color:var(--l0);background-image:var(--tex-l0);background-size:420px 420px;background-blend-mode:soft-light;filter:drop-shadow(0 4px 6px var(--shadow-layer))}
+.deco-collure .bout:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--night) 0 10px,transparent 10px 24px) 0 9px/100% 9px no-repeat,repeating-linear-gradient(90deg,var(--night) 0 10px,transparent 10px 24px) 0 calc(100% - 9px)/100% 9px no-repeat,repeating-linear-gradient(90deg,transparent 0 94px,color-mix(in srgb,var(--night) 60%,transparent) 94px 96px)}
+.deco-collure .g{left:0;clip-path:polygon(2% 0,100% 0,100% 100%,3% 100%,0 86%,2.5% 70%,.5% 52%,3% 34%,0 16%);animation:collure-g 10s ease-in-out infinite}
+.deco-collure .d{right:0;clip-path:polygon(0 0,98% 0,100% 14%,97.5% 30%,99.5% 48%,97% 66%,100% 84%,97% 100%,0 100%);animation:collure-d 10s ease-in-out infinite}
+.deco-collure .scotch{position:absolute;left:50%;top:-12%;width:66px;height:124%;translate:-50% 0;rotate:4deg;background-color:color-mix(in srgb,var(--white) 32%,transparent);background-image:var(--tex-l0);background-size:420px 420px;background-blend-mode:soft-light;clip-path:polygon(0 3%,20% 0,45% 4%,70% 0,100% 2%,100% 97%,75% 100%,50% 96%,25% 100%,0 98%);animation:scotch 10s ease-in-out infinite}
+@keyframes collure-g{0%,12%{translate:-28px 0}34%,92%{translate:0 0}100%{translate:-28px 0}}
+@keyframes collure-d{0%,12%{translate:28px 0}34%,92%{translate:0 0}100%{translate:28px 0}}
+@keyframes scotch{0%,36%{opacity:0;translate:-50% -34px}50%,88%{opacity:1;translate:-50% 0}95%,100%{opacity:0;translate:-50% -34px}}
+@media(max-width:720px){#douleurs{padding-bottom:120px}.deco-collure{height:56px;bottom:34px}.deco-collure .scotch{width:44px}}
+/* Animations revues pour les nouveaux fonds (17/11/2026, « revoit les petites animations par page afin qu'elles puissent se voir ») */
+/* défilement : le voile sur la photo prend la teinte C2 de la section, sinon il la cache */
+body[data-da="fusion"] .story-sea{background:linear-gradient(90deg,color-mix(in srgb,#2c5a88 91%,transparent) 15%,color-mix(in srgb,#2c5a88 66%,transparent) 65%,color-mix(in srgb,#2c5a88 67%,transparent)),var(--littoral) center/cover}
+/* essai, le bleu le plus clair : orbites et point en clair pour ressortir */
+body[data-da="fusion"] .trial .trial-orbit{border-color:color-mix(in srgb,var(--white) 34%,transparent)}
+body[data-da="fusion"] .trial .deco-satellite:before{width:10px;height:10px;margin-left:-5px;top:-5px;background:var(--sand-hover);box-shadow:0 0 16px 2px var(--sand-hover);opacity:1}
+/* pied de page : une bobine de film en papier qui tourne lentement, comme un générique de fin */
+footer{position:relative;isolation:isolate;overflow:hidden}
+.deco-bobine{position:absolute;right:-26px;bottom:-34px;width:130px;aspect-ratio:1;border-radius:50%;opacity:.45;background-color:var(--l2);background-image:var(--tex-l2);background-size:420px 420px;background-blend-mode:soft-light;
+ mask:radial-gradient(circle at 50% 50%,transparent 0 9%,#000 10% 100%);animation:bobine 40s linear infinite}
+.deco-bobine:before{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 22%,var(--abyss) 0 11%,transparent 12%),radial-gradient(circle at 78% 42%,var(--abyss) 0 11%,transparent 12%),radial-gradient(circle at 68% 74%,var(--abyss) 0 11%,transparent 12%),radial-gradient(circle at 32% 74%,var(--abyss) 0 11%,transparent 12%),radial-gradient(circle at 22% 42%,var(--abyss) 0 11%,transparent 12%);box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--l0) 60%,transparent)}
+@keyframes bobine{to{rotate:360deg}}
+/* La timeline passait derrière les vignettes : on la pose dans le blanc entre les vignettes et la barre du bas. */
+body[data-da="fusion"] .deco-montage{top:83%;height:7.5%}
+body[data-da="fusion"] .deco-montage b{background:#2c5a88}
+/* Le point partait de 80°, hors de la section (coupé en haut) : sa course reste dans la partie visible de l'orbite. */
+body[data-da="fusion"] .trial .deco-satellite{animation-name:orbite-essai}
+@keyframes orbite-essai{from{rotate:105deg}to{rotate:158deg}}
+
+/* Lisibilité (17/11/2026, « c'est écrit petit pour le texte ; certains textes de bouton ne sont pas centrés ») :
+   une échelle de texte relevée (courant 16-17 px, notes 13 px, sur-titres 12 px, plus rien sous 11 px)
+   et un écart texte-flèche resserré pour que le libellé paraisse centré dans sa pastille. */
+body[data-da="fusion"] :is(p.eyebrow,header small){font-size:12px}
+body[data-da="fusion"] :is(.story-timeline span,.scroll-invite,.project-tag,.watch,.compare-label,.depth-card>span){font-size:11px}
+body[data-da="fusion"] :is(.small-note,.range-label,.trial-caption,.resa-entete,.side-note,.resa-note,footer p,footer span,footer button){font-size:13px}
+body[data-da="fusion"] .text-link{font-size:14px}
+body[data-da="fusion"] .method .steps span{font-size:12px}
+body[data-da="fusion"] :is(.vsl-home-copy>p:last-child,.method .steps p,.story-intro,.work .project p,.about p,.about b,.faq-list details p,.trial p:not(.eyebrow),.booking-copy>p:not(.eyebrow)){font-size:16px;line-height:1.7}
+body[data-da="fusion"] :is(.body-copy,.faq-list summary){font-size:17px}
+body[data-da="fusion"] :is(.button,.vsl-home-actions .button,.story-heading .button,.trial .button){font-size:15px;gap:12px;text-align:center}
+body[data-da="fusion"] :is(.filter,nav>a){font-size:14px}
+body[data-da="fusion"] .nav-contact span{margin-left:10px}
+@media(max-width:720px){
+ body[data-da="fusion"] :is(p.eyebrow,header small){font-size:11px}
+ body[data-da="fusion"] :is(.story-timeline span,.scroll-invite,.project-tag,.watch,.compare-label,.depth-card>span){font-size:10px}
+ body[data-da="fusion"] :is(.small-note,.range-label,.trial-caption,.resa-entete,.side-note,.resa-note,footer p,footer span,footer button){font-size:12px}
+ body[data-da="fusion"] :is(.vsl-home-copy>p:last-child,.method .steps p,.story-intro,.work .project p,.about p,.about b,.faq-list details p,.trial p:not(.eyebrow),.booking-copy>p:not(.eyebrow)){font-size:15px}
+ body[data-da="fusion"] :is(.body-copy,.faq-list summary){font-size:16px}
+ body[data-da="fusion"] :is(.button,.vsl-home-actions .button,.trial .button){font-size:14px}
+ body[data-da="fusion"] .story-heading .button{font-size:11px;gap:6px}
+ body[data-da="fusion"] .nav-contact{font-size:12px;white-space:nowrap;padding:11px 14px}
+ body[data-da="fusion"] header small{font-size:10px}
+ body[data-da="fusion"] .text-link{font-size:13px;white-space:nowrap}
+ body[data-da="fusion"] .story-counter{font-size:11px}
+ body[data-da="fusion"] .depth-card>span{font-size:10px}
+ /* trop étroit pour les trois étapes lisibles : la ligne, son repère et le compteur 01/03 suffisent */
+ body[data-da="fusion"] .story-timeline span{display:none}
+}
+
+/* « Ton premier short, monté en 72 h… » (17/11/2026, « trop petit, c'est important ») : la promesse de délai devient une ligne forte, pas une note. */
+body[data-da="fusion"] .trial .trial-caption:not(#_){font-size:18px;font-weight:600;line-height:1.5;color:var(--white);margin-top:24px}
+@media(max-width:720px){body[data-da="fusion"] .trial .trial-caption:not(#_){font-size:16px}}
+
+/* « Trop petit » (17/11/2026) : calendrier de réservation et boutons de l'accueil agrandis. */
+body[data-da="fusion"] .resa-titre{font-size:22px}
+body[data-da="fusion"] :is(.resa-mois,.resa-cal){width:min(470px,100%)}
+body[data-da="fusion"] .resa-mois{font-size:19px}
+body[data-da="fusion"] .resa-fleche{width:44px;height:44px;font-size:24px}
+body[data-da="fusion"] .resa-cal{gap:9px}
+body[data-da="fusion"] .resa-entete:not(#_){font-size:15px}
+body[data-da="fusion"] .resa-jour{font-size:18px}
+body[data-da="fusion"] .resa-note:not(#_){font-size:15px}
+body[data-da="fusion"] .resa-choix{font-size:17px;padding:14px 20px}
+body[data-da="fusion"] .resa-choix span{font-size:13px}
+body[data-da="fusion"] .resa-retour{font-size:14px}
+body[data-da="fusion"] .resa-champ{font-size:14px}
+body[data-da="fusion"] .resa-champ input{font-size:16px;padding:13px 14px}
+body[data-da="fusion"] .resa-message{font-size:15px}
+body[data-da="fusion"] .vsl-home-actions .button{font-size:17px;padding:19px 34px}
+body[data-da="fusion"] .vsl-home-actions .text-link{font-size:16px}
+@media(max-width:720px){
+ body[data-da="fusion"] .resa-titre{font-size:19px}
+ body[data-da="fusion"] .resa-mois{font-size:17px}
+ body[data-da="fusion"] .resa-cal{gap:6px}
+ body[data-da="fusion"] .resa-entete:not(#_){font-size:13px}
+ body[data-da="fusion"] .resa-jour{font-size:16px}
+ body[data-da="fusion"] .resa-note:not(#_){font-size:14px}
+ body[data-da="fusion"] .resa-choix{font-size:15px;padding:12px 14px}
+ body[data-da="fusion"] .vsl-home-actions .button{font-size:15px;padding:16px 22px}
+ body[data-da="fusion"] .vsl-home-actions .text-link{font-size:14px}
+}
+
+/* Deux « Réserver un appel » pleins sur le même écran (17/11/2026, « c'est bizarre ») : celui du menu passe en contour sable,
+   l'orange plein reste au seul bouton de l'accueil. Au survol, il se remplit. */
+body[data-da="fusion"] header .nav-contact{background:transparent;color:var(--sand);border:1.5px solid var(--sand);transition:background .2s,color .2s}
+body[data-da="fusion"] header .nav-contact span{color:var(--sand)}
+body[data-da="fusion"] header .nav-contact:is(:hover,:focus-visible){background:var(--sand);color:var(--on-accent)}
+body[data-da="fusion"] header .nav-contact:is(:hover,:focus-visible) span{color:var(--on-accent)}
+
+/* VSL de l'accueil (17/11/2026, « récupère ma VSL et place-la ») : l'affiche garde le portrait, une pastille sable lance la vidéo dans le cadre. */
+.vsl-lancer{position:absolute;left:6%;bottom:12%;z-index:4;display:inline-flex;align-items:center;gap:12px;font:inherit;font-size:16px;font-weight:600;color:var(--on-accent);background:var(--sand);border:0;border-radius:100px;padding:12px 22px 12px 12px;cursor:pointer;box-shadow:0 10px 30px color-mix(in srgb,var(--abyss) 55%,transparent);transition:transform .4s var(--ease),background .2s}
+.vsl-lancer:hover,.vsl-lancer:focus-visible{background:var(--sand-hover);transform:translateY(-2px);outline:none}
+.vsl-lancer:focus-visible{outline:2px solid var(--white);outline-offset:3px}
+.vsl-lancer-icone{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--night);color:var(--sand);font-size:13px;padding-left:3px}
+.vsl-duree{font-weight:500;font-size:14px;opacity:.75}
+.vsl-video{position:absolute;inset:0;width:100%;height:100%;z-index:6;background:#000;object-fit:contain}
+.vsl-placeholder.en-lecture .vsl-lancer{display:none}
+@media(max-width:720px){.vsl-lancer{left:5%;bottom:8%;font-size:13px;gap:8px;padding:7px 14px 7px 7px}.vsl-lancer-icone{width:28px;height:28px;font-size:10px}.vsl-duree{font-size:12px}}
+
+/* Comparateur : bouton du son à côté de la lecture */
+body[data-da="fusion"] .compare-son{margin-left:26px}
+
+/* Réservation : créneaux libres en sable, déjà pris en gris */
+body[data-da="fusion"] .resa-choix:not(.resa-pris){border-color:var(--sand);color:var(--sand)}
+body[data-da="fusion"] .resa-choix:not(.resa-pris):hover,body[data-da="fusion"] .resa-choix:not(.resa-pris):focus-visible{background:var(--sand);color:var(--night)}
+body[data-da="fusion"] .resa-choix.resa-pris{border-color:#5d6675;color:#7d8696;background:color-mix(in srgb,#5d6675 18%,transparent);cursor:not-allowed}
