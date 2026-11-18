@@ -106,3 +106,12 @@ vslBouton?.addEventListener('click',()=>{compareStop();if(WISTIA.vsl){const f=wi
 function sonCote(){const on=document.querySelector('.compare-son')?.getAttribute('aria-pressed')==='true',brut=Number(compareRange.value)>50;before.muted=!on||!brut;after.muted=!on||brut}
 const compareSon=document.querySelector('.compare-son');
 compareSon?.addEventListener('click',()=>{const on=compareSon.getAttribute('aria-pressed')!=='true';compareSon.setAttribute('aria-pressed',on);compareSon.textContent=on?'Couper le son':'Activer le son';sonCote();if(on&&!compareWanted){comparePausedByUser=false;compareStart(false)}});
+
+// Fenêtre Contact : le lien « Contact » du menu l'ouvre ; sans JavaScript, il mène toujours au calendrier (#reserver).
+const contactDialog=document.querySelector('#contact-dialog');let contactOpener;
+document.querySelectorAll('[data-contact]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();contactOpener=a;contactDialog.querySelector('.contact-status').textContent='';contactDialog.showModal();document.body.style.overflow='hidden'}));
+contactDialog.querySelectorAll('[data-close-contact]').forEach(b=>b.addEventListener('click',()=>contactDialog.close()));
+contactDialog.addEventListener('click',e=>{if(e.target!==contactDialog)return;const r=contactDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)contactDialog.close()});
+contactDialog.addEventListener('close',()=>{document.body.style.overflow='';if(contactDialog.dataset.vers)delete contactDialog.dataset.vers;else contactOpener?.focus()});
+contactDialog.querySelector('.contact-book').addEventListener('click',()=>{contactDialog.dataset.vers='1'});
+contactDialog.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const st=contactDialog.querySelector('.contact-status');try{await navigator.clipboard.writeText(b.dataset.copy);st.textContent='Adresse copiée.'}catch{st.textContent='Copie impossible : appuie longuement sur l’adresse pour la copier.'}}));
