@@ -32,7 +32,8 @@ compareRange.addEventListener('input',()=>setSplit(Number(compareRange.value)));
 // La ligne se tire aussi sur la vidéo ; pan-y garde le défilement vertical au doigt.
 compareFrame.style.touchAction='pan-y';compareFrame.style.cursor='ew-resize';
 const splitFromPointer=e=>{const b=compareFrame.getBoundingClientRect();setSplit((e.clientX-b.left)/b.width*100)};
-compareFrame.addEventListener('pointerdown',e=>{compareFrame.setPointerCapture(e.pointerId);splitFromPointer(e)});
+compareFrame.addEventListener('pointerdown',e=>{try{compareFrame.setPointerCapture(e.pointerId)}catch{}splitFromPointer(e);compareDepuisGeste()});
+compareRange.addEventListener('pointerdown',()=>compareDepuisGeste());
 compareFrame.addEventListener('pointermove',e=>{if(compareFrame.hasPointerCapture(e.pointerId))splitFromPointer(e)});
 // Comparateur brut / monté (06/11/2026 : « jamais de bug sur la synchro ») : un seul pilote pour les deux vidéos.
 // Le brut mène, le monté suit. Une seule boucle pour les deux (chaque vidéo rebouclait seule et elles se décalaient).
@@ -40,7 +41,7 @@ compareFrame.addEventListener('pointermove',e=>{if(compareFrame.hasPointerCaptur
 // si l'une manque de données ou se cale, les deux s'arrêtent et repartent ensemble.
 before.loop=after.loop=false;
 const compareError=document.querySelector('#compare-error');
-let compareWanted=false,comparePausedByUser=false,compareTick=0;
+let compareWanted=false,comparePausedByUser=false,compareTick=0,compareBloque=false;
 const compareInView=()=>{const r=compareFrame.getBoundingClientRect();return !document.hidden&&r.bottom>innerHeight*.2&&r.top<innerHeight*.8};
 function compareShow(){compareButton.textContent=compareWanted?'Mettre en pause Ⅱ':'Lire la comparaison ▶'}
 function compareStart(fromZero){
@@ -48,24 +49,33 @@ function compareStart(fromZero){
  compareError.textContent='';compareWanted=true;compareShow();
  cancelAnimationFrame(compareTick);compareTick=requestAnimationFrame(compareFollow);
 }
+// Seul un refus de lecture automatique (économie d'énergie de l'iPhone) arrête tout ; une lecture interrompue par une pause est normale.
+function compareRefus(err){if(err&&err.name==='NotAllowedError'&&compareWanted){compareStop();compareBloque=true;compareError.textContent='Touche la vidéo pour lancer la comparaison.'}}
+function compareJouer(){before.play().catch(compareRefus);after.play().catch(compareRefus)}
+// Un toucher sur la vidéo ou le curseur la lance : la lecture part dans le geste même, ce que l'iPhone accepte toujours.
+function compareDepuisGeste(){if(comparePausedByUser||(compareWanted&&!before.paused))return;comparePausedByUser=false;compareBloque=false;compareStart(false);compareJouer()}
 function compareStop(){compareWanted=false;cancelAnimationFrame(compareTick);before.pause();after.pause();after.playbackRate=1;compareShow()}
 function compareFollow(){
  if(!compareWanted)return;
  compareTick=requestAnimationFrame(compareFollow);
  if(before.ended){before.currentTime=after.currentTime=0;return}       // fin du brut : les deux repartent du début
  if(after.ended)return;                                                   // le monté a fini une image plus tôt : il attend le brut
- if(before.readyState<3||after.readyState<3||before.seeking||after.seeking){before.pause();after.pause();return}
- if(before.paused||after.paused){
-  Promise.all([before.play(),after.play()]).catch(()=>{if(compareWanted){compareStop();compareError.textContent='Lecture indisponible. Réessaie dans quelques instants.'}});
+ // L'iPhone ne charge pas une vidéo en pause (preload ignoré) : on demande la lecture pour qu'elle se charge,
+ // et seule la vidéo prête attend l'autre, pour garder la synchro (18/11/2026, « sans avoir besoin de faire play »).
+ if(before.readyState<3||after.readyState<3||before.seeking||after.seeking){
+  if(before.paused&&after.paused){compareJouer();return}
+  [before,after].forEach(v=>{if(v.readyState>=3&&!v.seeking&&!v.paused)v.pause()});
+  [before,after].forEach(v=>{if((v.readyState<3||v.seeking)&&v.paused)v.play().catch(compareRefus)});
   return;
  }
+ if(before.paused||after.paused){compareJouer();return}
  const gap=after.currentTime-before.currentTime;
  if(Math.abs(gap)>.25){after.playbackRate=1;after.currentTime=before.currentTime}
  else after.playbackRate=Math.abs(gap)>.03?(gap>0?.94:1.06):1;
 }
 compareButton.addEventListener('click',()=>{
  if(compareWanted){comparePausedByUser=true;compareStop()}
- else{comparePausedByUser=false;compareStart(true)}
+ else{comparePausedByUser=false;compareBloque=false;compareStart(true);compareJouer()}
 });
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),motionButton=document.querySelector('#motion-toggle');let manualReduced=false;
 const layers=[...document.querySelectorAll('[data-parallax]')];let pending=false;
@@ -105,7 +115,7 @@ vslBouton?.addEventListener('click',()=>{compareStop();if(WISTIA.vsl){const f=wi
 // Son du comparateur : coupé au départ (la lecture automatique l'exige), puis on entend le côté qui occupe le plus le cadre.
 function sonCote(){const on=document.querySelector('.compare-son')?.getAttribute('aria-pressed')==='true',brut=Number(compareRange.value)>50;before.muted=!on||!brut;after.muted=!on||brut}
 const compareSon=document.querySelector('.compare-son');
-compareSon?.addEventListener('click',()=>{const on=compareSon.getAttribute('aria-pressed')!=='true';compareSon.setAttribute('aria-pressed',on);compareSon.textContent=on?'Couper le son':'Activer le son';sonCote();if(on&&!compareWanted){comparePausedByUser=false;compareStart(false)}});
+compareSon?.addEventListener('click',()=>{const on=compareSon.getAttribute('aria-pressed')!=='true';compareSon.setAttribute('aria-pressed',on);compareSon.textContent=on?'Couper le son':'Activer le son';sonCote();if(on&&!compareWanted){comparePausedByUser=false;compareBloque=false;compareStart(false);compareJouer()}});
 
 // Fenêtre Contact : le lien « Contact » du menu l'ouvre ; sans JavaScript, il mène toujours au calendrier (#reserver).
 const contactDialog=document.querySelector('#contact-dialog');let contactOpener;
