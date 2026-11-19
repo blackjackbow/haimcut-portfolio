@@ -1,7 +1,7 @@
 'use strict';
 const dialog=document.querySelector('#player-dialog'),player=document.querySelector('#player');
 // Vidéos hébergées sur Wistia (compte haimcut, 18/11/2026) ; une clé absente est lue en local dans media/.
-const WISTIA={vsl:'oaa8u4zxtp',H1:'cbvtvckrz2',H2:'jz6ie62xnu',H3:'bu55ofczwf',H4:'mkdvo2854o',enfants:'5wu0xexz62','90jours':'i6okussc03',habitudes:'xepav750km'};
+const WISTIA={vsl:'oaa8u4zxtp',H1:'cbvtvckrz2',H2:'jz6ie62xnu',H3:'bu55ofczwf',H4:'mkdvo2854o',enfants:'5wu0xexz62','90jours':'i6okussc03',habitudes:'xepav750km','niveau-sobre':'z2q2z3amxe','niveau-dynamique':'zlof07a2s9','niveau-habille':'cbqn7fdfdi'};
 const wistiaFrame=id=>{const f=document.createElement('iframe');f.src=`https://fast.wistia.net/embed/iframe/${id}?autoPlay=true&doNotTrack=true`;f.allow='autoplay; fullscreen';f.allowFullscreen=true;f.title='Lecteur vidéo';return f};
 let opener;
 document.querySelectorAll('[data-video]').forEach(button=>button.addEventListener('click',()=>{
@@ -125,3 +125,6 @@ contactDialog.addEventListener('click',e=>{if(e.target!==contactDialog)return;co
 contactDialog.addEventListener('close',()=>{document.body.style.overflow='';if(contactDialog.dataset.vers)delete contactDialog.dataset.vers;else contactOpener?.focus()});
 contactDialog.querySelector('.contact-book').addEventListener('click',()=>{contactDialog.dataset.vers='1'});
 contactDialog.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const st=contactDialog.querySelector('.contact-status');try{await navigator.clipboard.writeText(b.dataset.copy);st.textContent='Adresse copiée.'}catch{st.textContent='Copie impossible : appuie longuement sur l’adresse pour la copier.'}}));
+/* trois niveaux : lecteur Wistia (clé absente : fichier local, aperçu seulement) ; une seule vidéo à la fois */
+const niveauStop=()=>document.querySelectorAll('.niveau-frame.joue').forEach(f=>{f.querySelector('iframe,video')?.remove();f.classList.remove('joue')});
+document.querySelectorAll('.niveau-lire').forEach(b=>b.addEventListener('click',()=>{niveauStop();compareStop();const id=WISTIA[b.dataset.niveau];let el;if(id)el=wistiaFrame(id);else{el=document.createElement('video');el.src='media/'+b.dataset.niveau+'.mp4';el.controls=el.autoplay=el.playsInline=true}b.after(el);b.parentElement.classList.add('joue');el.focus()}));

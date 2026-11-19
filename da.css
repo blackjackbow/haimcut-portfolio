@@ -50,8 +50,8 @@ body[data-da="fusion"] :is(.story-stage,.method,.about,.faq,.booking,footer){bac
    - sombres, qui s'enfoncent jusqu'au générique de fin : S1 #0f2946 → S2 deep → S3 night → S4 #06121f → pied de page abyss.
    Le contact reprend la teinte C1 de « Tu te reconnais ? » : il fait écho au début, avec ses couches de papier comme l'accueil. */
 body[data-da="fusion"] #douleurs{background-color:#1f466f}                          /* C1 */
-body[data-da="fusion"] .comparison{background-color:#0f2946}                        /* S1 */
-body[data-da="fusion"] :is(.scroll-story,.story-stage){background-color:#2c5a88}    /* C2 */
+body[data-da="fusion"] .comparison{background-color:#2c5a88}                        /* C2 (après « Tu veux voir le résultat ? », 19/11) */
+body[data-da="fusion"] :is(.scroll-story,.story-stage){background-color:#0f2946}    /* S1 */
 body[data-da="fusion"] .work{background-color:var(--deep)}                          /* S2 */
 body[data-da="fusion"] #process{background-color:#366593}                           /* C3 */
 body[data-da="fusion"] .about{background-color:var(--night)}                        /* S3 */
@@ -61,10 +61,10 @@ body[data-da="fusion"] .booking{background-color:#1f466f}                       
 body[data-da="fusion"] .booking-sea{background:linear-gradient(color-mix(in srgb,#1f466f 88%,transparent),color-mix(in srgb,#1f466f 69%,transparent)),var(--littoral) center 60%/cover} /* le voile sur la photo du littoral prend la teinte d'écho, sinon il la cache */
 body[data-da="fusion"] footer:not(._){background-color:var(--abyss)} /* fin ; :not(._) passe devant la règle :is() des fonds */
 /* sur les bleus clairs, textes éclaircis pour rester lisibles */
-body[data-da="fusion"] :is(#douleurs,.story-stage,#process,.trial,.booking){--white:#f4f8fc;--muted:#e2eaf3;--line:#5b86b3;color:var(--white)}
-body[data-da="fusion"] :is(#douleurs,.story-stage,#process,.trial,.booking) :is(h2,h3){color:var(--white)}
+body[data-da="fusion"] :is(#douleurs,.story-stage,.comparison,#process,.trial,.booking){--white:#f4f8fc;--muted:#e2eaf3;--line:#5b86b3;color:var(--white)}
+body[data-da="fusion"] :is(#douleurs,.story-stage,.comparison,#process,.trial,.booking) :is(h2,h3){color:var(--white)}
 body[data-da="fusion"] .trial:not(#_){--muted:#f4f8fc} /* la teinte la plus claire (C4) : textes secondaires en blanc plein */
-body[data-da="fusion"] :is(#douleurs,.story-stage,#process,.trial,.booking) em{color:var(--sand-hover)} /* sable plus clair : l'italique garde son contraste */
+body[data-da="fusion"] :is(#douleurs,.story-stage,.comparison,#process,.trial,.booking) em{color:var(--sand-hover)} /* sable plus clair : l'italique garde son contraste */
 
 /* couches de papier déchiré : bords dessinés par da.js, parallaxe au défilement (app.js) et à la souris */
 .paper-stack{position:absolute;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
